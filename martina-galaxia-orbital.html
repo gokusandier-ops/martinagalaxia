@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Martina 🌌 Mi Universo</title>
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  background: radial-gradient(circle at center, #2a003f, #000000);
+  font-family: Arial, sans-serif;
+}
+
+#mensaje{
+  position:absolute;
+  top:20px;
+  width:100%;
+  text-align:center;
+  color:white;
+  font-size:24px;
+  text-shadow:0 0 20px #ff66ff;
+  pointer-events:none;
+}
+</style>
+</head>
+<body>
+
+<div id="mensaje">Te amo mucho Martina 💜✨</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+<script src="https://threejs.org/examples/js/loaders/FontLoader.js"></script>
+<script src="https://threejs.org/examples/js/geometries/TextGeometry.js"></script>
+
+<script>
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 5000);
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+camera.position.z = 600;
+
+/* 🌟 ESTRELLAS DE FONDO */
+const starGeometry = new THREE.BufferGeometry();
+const starVertices = [];
+for(let i=0;i<15000;i++){
+  starVertices.push((Math.random()-0.5)*4000);
+  starVertices.push((Math.random()-0.5)*4000);
+  starVertices.push((Math.random()-0.5)*4000);
+}
+starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices,3));
+const starMaterial = new THREE.PointsMaterial({color:0xffffff, size:1});
+const stars = new THREE.Points(starGeometry, starMaterial);
+scene.add(stars);
+
+/* 🪐 PLANETA CENTRAL */
+const planetaGeo = new THREE.SphereGeometry(100, 64, 64);
+const planetaMat = new THREE.MeshBasicMaterial({
+  color:0x3d0066,
+});
+const planeta = new THREE.Mesh(planetaGeo, planetaMat);
+scene.add(planeta);
+
+/* 💜 ANILLO BRILLANTE */
+const ringGeo = new THREE.RingGeometry(110, 120, 64);
+const ringMat = new THREE.MeshBasicMaterial({
+  color:0xff66ff,
+  side:THREE.DoubleSide
+});
+const ring = new THREE.Mesh(ringGeo, ringMat);
+ring.rotation.x = Math.PI / 2;
+scene.add(ring);
+
+/* 💖 PALABRAS ROMÁNTICAS */
+const palabras = [
+"Mi Vida","Mi Universo","Mi Amor","Mi Corazón","Mi Destino","Mi Cielo","Mi Estrella",
+"Mi Felicidad","Mi Luz","Mi Sonrisa","Mi Sueño","Mi Razón","Mi Pasión","Mi Alegría",
+"Mi Todo","Mi Inspiración","Mi Eternidad","Mi Magia","Mi Tesoro","Mi Princesa",
+"Mi Reina","Mi Dulzura","Mi Ilusión","Mi Esperanza","Mi Energía","Mi Calma",
+"Mi Abrazo","Mi Caricia","Mi Suspiro","Mi Mirada","Mi Latido","Mi Cometa",
+"Mi Galaxia","Mi Infinito","Mi Horizonte","Mi Aurora","Mi Constelación"
+];
+
+const grupoPalabras = new THREE.Group();
+scene.add(grupoPalabras);
+
+const loader = new THREE.FontLoader();
+loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(font){
+
+  for(let i=0;i<800;i++){
+
+    const texto = palabras[Math.floor(Math.random()*palabras.length)] + " 💜";
+
+    const textGeo = new THREE.TextGeometr
+
